@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mypage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+      function read_data_date(){
+          
+          var Temp;
+  
+          $.ajax({
+              url: 'read_tb1_API.php', 
+              type: 'get',
+              dataType: 'json',
+              async :false,
+              success: function (data) {
+  
+                  Temp = data.date;
+  
+              },
+  
+              error: function(e) {
+                  alert("");  
+              }
+          });
+  
+          return Temp;
+      }
+  
+      function read_data_text(){
+      
+          var Temp;
+  
+          $.ajax({
+              url: 'read_tb1_API.php', 
+              type: 'get',
+              dataType: 'json',
+              async :false,
+              success: function (data) {
+  
+                  Temp = data.text;
+  
+              },
+  
+              error: function(e) {
+                  alert("");  
+              }
+          });
+  
+          return Temp;
+      }
+  </script>
+    <style>
+      .wrapping{
+         background-color:rgb(164, 191, 242);
+         opacity: 0.8;
+         height:100px;
+         line-height:100px;
+         font-family: 'Jua', sans-serif;
+      }
+    
+      .star{
+      
+      float:right;
+      height:60px;
+      line-height: 60px;
+      margin-right:30px;
+      color:white;
+      font-size:20px;
+      text-decoration: none;
+      color:rgb(253, 253, 253);
+      font-family: 'Jua', sans-serif;
+    }
+      #header {
+        background-color: #f1f8fd;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        font-weight: 900;
+        font-family: 'Jua', sans-serif;
+      }
+
+      #qq {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100px; /* 적절한 높이 값으로 조정하세요 */
+        font-family: 'Jua', sans-serif;
+        font-size:25px;
+      }
+
+      #text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Jua', sans-serif;
+      }
+
+      #bottom {
+        margin-top: 20px;
+     
+      }
+
+      table {
+        width: 500px;
+        border: 1px solid #777;
+      }
+      button{
+        font-weight:600;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapping">
+      <img src="img/logo-portal.png" onclick="location.href='index.html';" style=" cursor:pointer;" id="logo">
+      <a href="index.html" class="star">나가기</a>
+    </div>
+    <!-- body 내용 생략 -->
+   
+    <div id="qq">기록하고 싶은 일정을 입력하세요</div>
+    <div id="text">
+      <form action="data_tb1_Write.php" method="post" enctype="multipart/form-data">
+        날짜 <input type="date" name="date"> 이벤트 <input type="text" name="text">
+        <button type="submit">저장</button>
+      </form>
+    </div>
+    <div id="bottom">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>날짜</th>
+            <th>이벤트</th>
+          </tr>
+        </thead>
+        <tbody id="dataBody">
+          <tr>
+            <td>
+                <script>
+                  document.write(read_data_date());
+                </script>
+            </td>
+            <td>
+                <script>
+              
+                    document.write(read_data_text());
+                </script>
+            </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+   
+  </body>
+</html>
